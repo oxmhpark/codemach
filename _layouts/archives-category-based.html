@@ -1,0 +1,35 @@
+---
+layout: default
+---
+{% assign post = page %}
+{% include post-format-simpletext.html %}
+
+<div class="archives archive-type-categories">
+  <article class="entry entry-format-simpletext">
+    <h2 class="entry-title"></h2>
+    <div class="entry-body">
+      <ul class="tag-list">
+        {% for category in site.categories %}
+        <li class="tag-item">
+          {% capture category_name %}{{ category | first }}{% endcapture %}
+          <a name="#{{ category_name | slugize }}" href="{{ site.baseurl }}/archives#{{ category_name | slugize }}">
+            <span>#{{ category_name }}<span><sup>{{ category | size }}</sup>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </article>
+  {% for category in site.categories %}
+  <article class="entry entry-format-fulltext">
+    {% capture category_name %}{{ category | first }}{% endcapture %}
+    <h2 class="entry-title"><a name="#{{ category_name | slugize }}" href="{{ site.baseurl }}/archives#{{ category_name | slugize }}">#{{ category_name }}</a></h2>
+
+    <div class="entry-body archives archive-type-posts">
+      {% for post in site.categories[category_name] %}
+      {% include post-format-list-item.html %}
+      {% endfor %}
+    </div>
+  </article>
+  {% endfor %}
+</div>

@@ -1,0 +1,26 @@
+<article class="entry entry-format-list-item">
+  <h3 class="entry-title"><a href="{{ site.baseurl }}{{ post.url }}">{% if post.title and post.title != "" %}{{post.title}}{% else %}{{post.excerpt |strip_html}}{%endif%}</a></h3>
+
+  <div class="entry-meta">
+    <p class="entry-author">{{site.author}}</p>
+    <p class="entry-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %e, %Y" }}</p>
+    {% if post.last_modified_at %}
+    <p class="entry-date entry-date-modified" datetime="{{ post.last_modified_at | date_to_xmlschema }}">(Updated: {{ post.last_modified_at | date: "%b %-d, %Y" }})</p>
+    {% endif %}
+    {% assign categories = post.categories %}
+    {% if categories != '' %}
+    <ul class="entry-tags">
+      {% for category in categories %}
+      <li><a href="{{site.baseurl}}/archives#{{category|slugize}}">{{category}}</a></li>
+      {% unless forloop.last %}{% endunless %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  <div class="entry-body">
+    {{ post.excerpt }}
+  </div>
+
+  <p class="read-more"><a href="{{ site.baseurl }}{{ post.url }}">Read More</a></p>
+</article>
